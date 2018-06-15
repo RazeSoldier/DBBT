@@ -1,0 +1,8 @@
+{
+  "require-dev": {
+    "phpunit/phpunit": "^6"
+  },
+  "require": {
+    "php": ">=7.0.0"
+  }
+}

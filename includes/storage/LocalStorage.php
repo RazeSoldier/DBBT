@@ -20,14 +20,22 @@
 
 namespace DBBT\Storage;
 
+use DBBT\Config;
+
 class LocalStorage implements IStorage
 {
     private $sourcePath;
 
     private $targetPath;
 
-    public function __construct(string $source, string $target)
+    /**
+     * @var Config
+     */
+    private $config;
+
+    public function __construct(Config $config, string $source, string $target)
     {
+        $this->config = $config;
         $this->sourcePath = $source;
         $this->targetPath = $target;
     }

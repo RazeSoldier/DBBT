@@ -21,7 +21,10 @@
 namespace DBBT;
 
 use DBBT\{
-    Action\BackupAction, Action\StorageAction, Backup\Factory as BackupFactory, Storage\Factory as StorageFactory
+    Action\BackupAction,
+    Action\StorageAction,
+    Backup\Factory as BackupFactory,
+    Storage\Factory as StorageFactory
 };
 
 final class Core implements IRunnable
@@ -64,7 +67,7 @@ final class Core implements IRunnable
     private function storage(string $tmpPath)
     {
         if ( $this->config->get( 'StorageType' ) === 'local' ) {
-            $storage = StorageFactory::make( 'local' );
+            $storage = StorageFactory::make( 'local', $tmpPath, $this->config->get( 'StoragePath' ) );
         } elseif ( $this->config->get( 'StorageType' ) === 'remote' ) {
             $storage = StorageFactory::make( $this->config->get( 'RemoteType' ) );
         } else {

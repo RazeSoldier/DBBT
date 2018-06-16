@@ -32,13 +32,13 @@ abstract class AbstractFactory implements IFactory
      */
     protected static $module;
 
-    public static function make(string $name)
+    public static function make(string $name, ...$params)
     {
         if ( !self::hasClass( $name ) ) {
             throw new \LogicException( "Undefined class key: $name" );
         }
         $class = __NAMESPACE__ . '\\' . static::$module . '\\' . static::$classMap[$name];
-        return new $class( Config::getInstance() );
+        return new $class( Config::getInstance(), ...$params );
     }
 
     public static function makeAll() : array

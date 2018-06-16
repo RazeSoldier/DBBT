@@ -30,8 +30,8 @@ class Factory extends AbstractFactory
         'local' => 'LocalStorage',
     ];
 
-    public static function make(string $name) : IStorage
+    public static function make(string $name, ...$params) : IStorage
     {
-        return parent::make( $name );
+        return parent::make( $name, ...$params );
     }
 }

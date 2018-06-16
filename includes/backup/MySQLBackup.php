@@ -53,7 +53,7 @@ class MySQLBackup extends LogicalBackup
             throw new \RuntimeException( "$target does not writable" );
         }
         $this->tmpPath = $target . '/db.dump';
-        return $this->commandPrefix . "-h{$host} -u{$username} -p $password {$database} $option > $this->tmpPath";
+        return $this->commandPrefix . " -h{$host} -u{$username} -p $password {$database} $option > $this->tmpPath";
     }
 
     public function dump()

@@ -34,7 +34,7 @@ final class Factory extends AbstractFactory
         'mysql' => 'MySQLBackup',
     ];
 
-    public static function make(string $name) : IBackup
+    public static function make(string $name, ...$params) : IBackup
     {
         return parent::make( $name );
     }

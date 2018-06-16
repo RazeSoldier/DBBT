@@ -37,6 +37,9 @@ final class Core implements IRunnable
     public function __construct()
     {
         $this->config = Config::getInstance();
+        register_shutdown_function( [ $this, '__destruct' ] );
+        pcntl_signal( SIGTERM, [ $this, 'signalHandler' ] );
+        pcntl_signal( SIGKILL, [ $this, 'signalHandler' ] );
     }
 
     public function run()
@@ -80,13 +83,31 @@ final class Core implements IRunnable
         }
     }
 
+    /**
+     * Call when the application shutdown
+     */
     public function __destruct()
     {
+        // Clean up temporary files
         if ( isset( $_SESSION['dbbt_tmp'] ) && is_array( $_SESSION['dbbt_tmp'] ) ) {
             foreach ( $_SESSION['dbbt_tmp'] as $tmpFile ) {
                 unlink( $tmpFile );
             }
             unset( $_SESSION['dbbt_tmp'] );
+        }
+    }
+
+    /**
+     * Signal handling
+     * @param int $signo The signal number
+     */
+    private function signalHandler(int $signo)
+    {
+        switch ( $signo ) {
+            case SIGTERM:
+                die ( 1 );
+            case SIGKILL:
+                die ( 1 );
         }
     }
 }

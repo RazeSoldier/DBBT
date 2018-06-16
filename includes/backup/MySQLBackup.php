@@ -28,10 +28,10 @@ class MySQLBackup extends LogicalBackup
 
     private function getCommand() : string
     {
-        $host = $this->config->get( 'DBHost' );
-        $username = $this->config->get( 'DBUsername' );
-        $password = $this->config->get( 'DBPassword' );
-        $dbs = $this->config->get( 'DBWantDump' );
+        $host = escapeshellarg( $this->config->get( 'DBHost' ) );
+        $username = escapeshellarg( $this->config->get( 'DBUsername' ) );
+        $password = escapeshellarg( $this->config->get( 'DBPassword' ) );
+        $dbs = escapeshellarg( $this->config->get( 'DBWantDump' ) );
         if ( $dbs === null || $dbs === 'all' ) {
             $database =  '--all-databases';
         } elseif ( is_array( $dbs ) ) {
@@ -53,7 +53,7 @@ class MySQLBackup extends LogicalBackup
             throw new \RuntimeException( "$target does not writable" );
         }
         $this->tmpPath = $target . '/db.dump';
-        return $this->commandPrefix . " -h{$host} -u{$username} -p $password {$database} $option > $this->tmpPath";
+        return $this->commandPrefix . " -h{$host} -u{$username} -p$password {$database} $option > $this->tmpPath";
     }
 
     public function dump()

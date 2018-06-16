@@ -39,15 +39,18 @@ class CommandTest extends TestCase
     public function testOutput()
     {
         $arr = explode( "\n", $this->testInstance->output() );
-        $actual1 = array_filter( $arr, function ($var) {
+        $actual = array_filter( $arr, function ($var) {
             return empty( $var ) ? false : true;
         } );
+        $count = 0;
         if ( $dh = opendir( '.' ) ) {
             while ( ( $file = readdir( $dh ) ) !== false ) {
-                $actual2[] = $file;
+                if ( in_array( $file, $actual, true ) ) {
+                    $count++;
+                }
             }
             closedir( $dh );
         }
-        $this->assertEquals( $actual2, $actual1 );
+        $this->assertEquals( $count, count( $actual ) );
     }
 }

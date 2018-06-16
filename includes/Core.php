@@ -36,10 +36,10 @@ final class Core implements IRunnable
 
     public function __construct()
     {
-        $this->config = Config::getInstance();
         register_shutdown_function( [ $this, '__destruct' ] );
         pcntl_signal( SIGTERM, [ $this, 'signalHandler' ] );
         pcntl_signal( SIGKILL, [ $this, 'signalHandler' ] );
+        $this->config = Config::getInstance();
     }
 
     public function run()

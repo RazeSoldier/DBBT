@@ -73,7 +73,7 @@ final class Core implements IRunnable
         if ( $this->config->get( 'StorageType' ) === 'local' ) {
             $storage = StorageFactory::make( 'local', $tmpPath, $this->config->get( 'StoragePath' ) );
         } elseif ( $this->config->get( 'StorageType' ) === 'remote' ) {
-            $storage = StorageFactory::make( $this->config->get( 'RemoteType' ) );
+            $storage = StorageFactory::make( $this->config->get( 'RemoteType' ), $tmpPath );
         } else {
             throw new \LogicException();
         }

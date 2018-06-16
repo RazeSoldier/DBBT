@@ -68,7 +68,7 @@ class Command
      */
     public function __construct(string $command, string $cwd = null, string $env = null)
     {
-        $this->command = escapeshellcmd( $command );
+        $this->command = $command;
         $this->cwd = $cwd;
         $this->env = $env;
     }

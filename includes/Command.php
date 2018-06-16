@@ -26,6 +26,8 @@ class Command
 
     const STDOUT = 1;
 
+    const STDERR = 2;
+
     /**
      * @var string
      */
@@ -56,6 +58,8 @@ class Command
      */
     private $pipes;
 
+    private $errorMsg;
+
     /**
      * Command constructor.
      * @param string $command
@@ -76,7 +80,8 @@ class Command
         }
         $descriptorspec = [
             0 => ['pipe', 'r'],
-            1 => ['pipe', 'w']
+            1 => ['pipe', 'w'],
+            2 => ['pipe', 'w'],
         ];
         $this->process = proc_open( $this->command,$descriptorspec, $this->pipes, $this->cwd, $this->env );
         if ( !is_resource( $this->process ) ) {
@@ -101,8 +106,14 @@ class Command
         return proc_get_status( $this->process );
     }
 
+    public function getErrorMsg()
+    {
+        return stream_get_contents( $this->pipes[self::STDERR] );
+    }
+
     public function stop()
     {
+        $this->errorMsg = $this->getErrorMsg();
         $this->__destruct();
     }
 

@@ -110,10 +110,12 @@ class QcloudCOSBackup implements IStorage
     {
         try {
             $arr = $this->remoteConfig;
-            $arr[] = $file =  fopen( $this->source, 'rb' );
+            $arr[] = fopen( $this->source, 'rb' );
             $result = $this->cosClient->Upload( ...$arr );
-            fclose( $file );
-            return $result;
+            if ( is_object( $result ) ) {
+                return true;
+            }
+            return false;
         } catch ( \Exception $e ) {
             echo $e . "\n";
             die ( 1 );

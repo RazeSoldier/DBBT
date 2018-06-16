@@ -108,16 +108,16 @@ class Command
 
     public function getErrorMsg()
     {
-        return stream_get_contents( $this->pipes[self::STDERR] );
+        return $this->errorMsg;
     }
 
     public function stop()
     {
-        $this->errorMsg = $this->getErrorMsg();
+        $this->errorMsg = stream_get_contents( $this->pipes[self::STDERR] );
         $this->__destruct();
     }
 
-    public function closePipe()
+    private function closePipe()
     {
         foreach ( $this->pipes as $pipe ) {
             if ( is_resource( $pipe ) ) {

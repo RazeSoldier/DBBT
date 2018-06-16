@@ -62,6 +62,7 @@ class MySQLBackup extends LogicalBackup
         $shell->execute();
         $shell->stop();
         if ( $shell->getStatus() !== 0 ) {
+            echo "Error message:\n" . $shell->getErrorMsg() . "\n";
             throw new \RuntimeException( 'Failed to dump, exit code: ' . $shell->getStatus() );
         }
         return $this->tmpPath;

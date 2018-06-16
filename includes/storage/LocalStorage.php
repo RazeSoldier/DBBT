@@ -37,6 +37,9 @@ class LocalStorage implements IStorage
     {
         $this->config = $config;
         $this->sourcePath = $source;
+        if ( is_dir( $target ) ) {
+            throw new \LogicException( '$gStoragePath is a directory' );
+        }
         $this->targetPath = $target;
     }
 

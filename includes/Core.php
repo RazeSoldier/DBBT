@@ -56,9 +56,10 @@ final class Core implements IRunnable
      */
     private function backup() : string
     {
-        if ( $this->config->get( 'BackupType' ) === 'logical' ) {
+        $config = $this->config->get( 'BackupType' );
+        if ( $config === 'logical' ) {
             $dumper = BackupFactory::make( $this->config->get( 'DBType' ) );
-        } elseif ( $this->config->get( 'BackupType' ) === 'physical' ) {
+        } elseif ( $config === 'physical' ) {
             $dumper = BackupFactory::make( 'physical' );
         } else {
             throw new \LogicException();
@@ -70,9 +71,10 @@ final class Core implements IRunnable
 
     private function storage(string $tmpPath)
     {
-        if ( $this->config->get( 'StorageType' ) === 'local' ) {
+        $config = $this->config->get( 'StorageType' );
+        if ( $config === 'local' ) {
             $storage = StorageFactory::make( 'local', $tmpPath, $this->config->get( 'StoragePath' ) );
-        } elseif ( $this->config->get( 'StorageType' ) === 'remote' ) {
+        } elseif ( $config === 'remote' ) {
             $storage = StorageFactory::make( $this->config->get( 'RemoteType' ), $tmpPath );
         } else {
             throw new \LogicException();

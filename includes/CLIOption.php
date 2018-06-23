@@ -26,7 +26,7 @@ namespace DBBT;
  */
 final class CLIOption implements ISingleton, IAccessor
 {
-	const SHORT_OPTION_IDENTIFIER = '-';
+    const SHORT_OPTION_IDENTIFIER = '-';
     const LONG_OPTION_IDENTIFIER = '--';
 
     /**

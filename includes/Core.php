@@ -74,7 +74,7 @@ final class Core implements IRunnable
         } else {
             throw new \LogicException();
         }
-        $action = new BackupAction( $dumper );
+        $action = new BackupAction( $dumper, $this->logger );
         $invoker = new Invoker( $action );
         return $_SESSION['dbbt_tmp'][] = $invoker->doAction();
     }

@@ -21,3 +21,6 @@ $gStorageType = ''; // Required, storage type (Allow value: 'local' or 'remote')
 $gRemoteType = ''; // Remote type (Allow value: 'qcloud')
 # ... Other remote configuration
 // @}
+
+# Other config
+$gLogFilePath = ''; // The path to the log file, if it set to NULL or an empty string, logging will disable

@@ -26,6 +26,7 @@ namespace DBBT;
  */
 final class CLIOption implements ISingleton, IAccessor
 {
+	const SHORT_OPTION_IDENTIFIER = '-';
     const LONG_OPTION_IDENTIFIER = '--';
 
     /**
@@ -34,6 +35,8 @@ final class CLIOption implements ISingleton, IAccessor
     private static $instance;
 
     private $options = [];
+
+    private $shortOptions = [];
 
     private function __construct()
     {
@@ -44,7 +47,26 @@ final class CLIOption implements ISingleton, IAccessor
                 $this->options[$matches['name'][0]] = str_replace( self::LONG_OPTION_IDENTIFIER
                     . "{$matches['name'][0]}=", null, $option );
             }
+            $pattern = '/^'. self::SHORT_OPTION_IDENTIFIER . '(?<name>.*)/';
+            // Determines if $option is a short option
+            if ( preg_match_all( $pattern, $option, $matches ) > 0 ) {
+                $this->shortOptions[] = $matches['name'][0];
+            }
         }
+        // Show the help message when command options includes -h
+        if ( in_array( 'h', $this->shortOptions ) ) {
+            $this->showHelpMessage();
+            die( 0 );
+        }
+    }
+
+    private function showHelpMessage()
+    {
+        echo <<<TEXT
+Usage: php run.php
+       php run.php --config=<config file path>
+ --config Customize the configuration file path instead of the default config.php
+TEXT;
     }
 
     /**0

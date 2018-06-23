@@ -20,18 +20,30 @@
 
 namespace DBBT\Action;
 
+use DBBT\Logger;
 use DBBT\Storage\IStorage;
 
-class StorageAction implements IAction
+final class StorageAction implements IAction
 {
     /**
      * @var IStorage
      */
     private $storage;
 
-    public function __construct(IStorage $storage)
+    /**
+     * @var Logger|null
+     */
+    private $logger;
+
+    /**
+     * StorageAction constructor.
+     * @param IStorage $storage
+     * @param Logger|null $logger
+     */
+    public function __construct(IStorage $storage, Logger $logger = null)
     {
         $this->storage = $storage;
+        $this->logger = $logger;
     }
 
     /**
@@ -39,6 +51,10 @@ class StorageAction implements IAction
      */
     public function execute() : bool
     {
-        return $this->storage->save();
+        $result = $this->storage->save();
+        if ( $this->logger !== null ) {
+            $this->logger->write( Logger::makeMessage( 'Succeed storage dump file', 'Notice' ) );
+        }
+        return $result;
     }
 }

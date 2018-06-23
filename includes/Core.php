@@ -34,6 +34,11 @@ final class Core implements IRunnable
      */
     private $config;
 
+    /**
+     * @var Logger|null
+     */
+    private $logger;
+
     public function __construct()
     {
         register_shutdown_function( [ $this, '__destruct' ] );
@@ -41,6 +46,11 @@ final class Core implements IRunnable
             pcntl_signal( SIGTERM, [ $this, 'signalHandler' ] );
         }
         $this->config = Config::getInstance();
+        if ( Config::getInstance()->has( 'LogFilePath' ) &&
+            !empty( $path = Config::getInstance()->get( 'LogFilePath' ) )
+        ) {
+            $this->logger = new Logger( $path );
+        }
     }
 
     public function run()
@@ -64,7 +74,7 @@ final class Core implements IRunnable
         } else {
             throw new \LogicException();
         }
-        $action = new BackupAction( $dumper );
+        $action = new BackupAction( $dumper, $this->logger );
         $invoker = new Invoker( $action );
         return $_SESSION['dbbt_tmp'][] = $invoker->doAction();
     }
@@ -79,7 +89,7 @@ final class Core implements IRunnable
         } else {
             throw new \LogicException();
         }
-        $action = new StorageAction( $storage );
+        $action = new StorageAction( $storage, $this->logger );
         $invoker = new Invoker( $action );
         if ( !$invoker->doAction() ) {
             throw new \RuntimeException( 'Failed to storage' );
@@ -95,6 +105,7 @@ final class Core implements IRunnable
         if ( isset( $_SESSION['dbbt_tmp'] ) && is_array( $_SESSION['dbbt_tmp'] ) ) {
             foreach ( $_SESSION['dbbt_tmp'] as $tmpFile ) {
                 unlink( $tmpFile );
+                $this->logger->write( Logger::makeMessage( "Deleted tmp file: $tmpFile", 'Notice' ) );
             }
             unset( $_SESSION['dbbt_tmp'] );
         }

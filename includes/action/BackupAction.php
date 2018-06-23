@@ -21,6 +21,7 @@
 namespace DBBT\Action;
 
 use DBBT\Backup\IBackup;
+use DBBT\Logger;
 
 /**
  * Responsible for calling IBackup::dump()
@@ -34,20 +35,32 @@ final class BackupAction implements IAction
     private $dumper;
 
     /**
+     * @var Logger|null
+     */
+    private $logger;
+
+    /**
      * BackupAction constructor.
      * @param IBackup $dumper
+     * @param Logger|null $logger
      */
-    public function __construct(IBackup $dumper)
+    public function __construct(IBackup $dumper, Logger $logger = null)
     {
         $this->dumper = $dumper;
+        $this->logger = $logger;
     }
 
     /**
      * Execute IBackup::dump() method
-     * @return mixed
+     * @return string
      */
-    public function execute()
+    public function execute() : string
     {
-        return $this->dumper->dump();
+        $dumpFile = $this->dumper->dump();
+        if ( $this->logger !== null ) {
+            $text = "Dump successful, the tmp file saved to $dumpFile";
+            $this->logger->write( Logger::makeMessage( $text, 'Notice' ) );
+        }
+        return $dumpFile;
     }
 }

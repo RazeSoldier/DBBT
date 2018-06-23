@@ -18,17 +18,34 @@
  * @copyright
  */
 
-namespace DBBT\Backup;
+namespace DBBT\Test;
 
-use DBBT\Config;
+use DBBT\Logger;
+use PHPUnit\Framework\TestCase;
 
-interface IBackup
+class LoggerTest extends TestCase
 {
-    /**
-     * IBackup constructor.
-     * @param Config $config
-     */
-    public function __construct(Config $config);
+    private $tmpPath;
 
-    public function dump() : string;
+    protected function setUp()
+    {
+        $this->tmpPath = __DIR__ . '/test.tmp';
+    }
+
+    public function testWrite()
+    {
+        $expected = 'This is a test.';
+        $logger = new Logger( $this->tmpPath );
+        $logger->write( 'This is a test.' );
+        unset( $logger );
+
+        $this->assertEquals( $expected, file_get_contents( $this->tmpPath ) );
+    }
+
+    protected function tearDown()
+    {
+        if ( file_exists( $this->tmpPath ) ) {
+            unlink( $this->tmpPath );
+        }
+    }
 }

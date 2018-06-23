@@ -34,7 +34,7 @@ class PhysicalBackup implements IBackup
         $this->config = $config;
     }
 
-    public function dump()
+    public function dump() : string
     {
         // TODO: Implement dump() method.
     }

@@ -41,6 +41,7 @@ return [
     'Invoker' => 'includes/Invoker.php',
     'IRunnable' => 'includes/IRunnable.php',
     'ISingleton' => 'includes/ISingleton.php',
+    'Logger' => 'includes/Logger.php',
     'Storage\Factory' => 'includes/storage/Factory.php',
     'Storage\IStorage' => 'includes/storage/IStorage.php',
     'Storage\LocalStorage' => 'includes/storage/LocalStorage.php',

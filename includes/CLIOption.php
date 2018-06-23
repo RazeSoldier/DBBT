@@ -46,6 +46,7 @@ final class CLIOption implements ISingleton, IAccessor
             if ( preg_match_all( $pattern, $option, $matches ) > 0 ) {
                 $this->options[$matches['name'][0]] = str_replace( self::LONG_OPTION_IDENTIFIER
                     . "{$matches['name'][0]}=", null, $option );
+                continue;
             }
             $pattern = '/^'. self::SHORT_OPTION_IDENTIFIER . '(?<name>.*)/';
             // Determines if $option is a short option

@@ -56,7 +56,7 @@ class MySQLBackup extends LogicalBackup
         return $this->commandPrefix . " -h{$host} -u{$username} -p$password {$database} $option > $this->tmpPath";
     }
 
-    public function dump()
+    public function dump() : string
     {
         $shell = new Command( $this->getCommand() );
         $shell->execute();

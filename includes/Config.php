@@ -71,12 +71,13 @@ final class Config implements ISingleton, IAccessor
     private function checkConfigs()
     {
         $rules = [
-            'DBType' => [
+            'StorageType' => [
                 'required',
                 [
                     'cond' => 'equals',
                     'value' => [
-                        'mysql',
+                        'local',
+                        'remote'
                     ]
                 ]
             ],

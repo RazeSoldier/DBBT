@@ -1,6 +1,13 @@
 # DBBT
 Database Backup Tool
 
+## Compatibility
+### PHP
+DBBT requires PHP 7.0+.
+### System
+DBBT is well tested only on linux systems, other systems
+(like: Windows) do not guarantee normal operation.
+
 ## Features
 ### Support database
 * MySQL (and MariaDB)

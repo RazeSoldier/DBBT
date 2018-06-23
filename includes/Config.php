@@ -19,7 +19,6 @@
  */
 
 namespace DBBT;
-use DBBT\CLIOption;
 
 /**
  * The facade of Config model

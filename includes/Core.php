@@ -34,6 +34,11 @@ final class Core implements IRunnable
      */
     private $config;
 
+    /**
+     * @var Logger|null
+     */
+    private $logger;
+
     public function __construct()
     {
         register_shutdown_function( [ $this, '__destruct' ] );
@@ -41,6 +46,11 @@ final class Core implements IRunnable
             pcntl_signal( SIGTERM, [ $this, 'signalHandler' ] );
         }
         $this->config = Config::getInstance();
+        if ( Config::getInstance()->has( 'LogFilePath' ) &&
+            !empty( $path = Config::getInstance()->get( 'LogFilePath' ) )
+        ) {
+            $this->logger = new Logger( $path );
+        }
     }
 
     public function run()

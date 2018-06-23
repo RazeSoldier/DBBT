@@ -79,5 +79,4 @@ class Logger
         }
         return "[$time]$level $text\n";
     }
-
 }

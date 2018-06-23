@@ -58,7 +58,7 @@ final class BackupAction implements IAction
     {
         $dumpFile = $this->dumper->dump();
         if ( $this->logger !== null ) {
-            $text = "Dump successful, the tmp saved to $dumpFile";
+            $text = "Dump successful, the tmp file saved to $dumpFile";
             $this->logger->write( Logger::makeMessage( $text, 'Notice' ) );
         }
         return $dumpFile;

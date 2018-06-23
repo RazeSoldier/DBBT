@@ -2,5 +2,7 @@
 Database Backup Tool
 
 ## Features
-* Support MySQL (and MariaDB) logical backup
-* Support backup to local or remote (Currently supported: QCloud COS)
+### Support database
+* MySQL (and MariaDB)
+### Support storage way
+* [QCloud COS remote storage](https://intl.cloud.tencent.com/product/cos)

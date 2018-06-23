@@ -64,4 +64,20 @@ class Logger
         }
         return true;
     }
+
+    /**
+     * Generate formatted messages
+     * @param string $text The message text
+     * @param string|null $level The level of the event
+     * @return string The formatted message
+     */
+    public static function makeMessage(string $text, string $level = null) : string
+    {
+        $time = ( new \DateTime() )->format( 'Y-m-d H:i:s:u' );
+        if ( $level !== null ) {
+            $level = "($level)";
+        }
+        return "[$time]$level $text\n";
+    }
+
 }

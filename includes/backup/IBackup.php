@@ -30,5 +30,5 @@ interface IBackup
      */
     public function __construct(Config $config);
 
-    public function dump();
+    public function dump() : string;
 }

@@ -18,23 +18,23 @@
  * @copyright
  */
 
-define( 'PHPUNIT_TEST', true );
+namespace DBBT\Compress;
+use DBBT\AbstractFactory;
 
-require_once dirname( __DIR__ ) . '/includes/Setup.php';
+/**
+ * Compress module factory class
+ * @package DBBT\Compress
+ */
+class Factory extends AbstractFactory
+{
+    protected static $module = 'Compress';
 
-$phpUnitClass = 'PHPUnit\TextUI\Command';
+    protected static $classMap = [
+        'tar.gz' => 'TarGzCompress',
+    ];
 
-if ( !class_exists( 'PHPUnit\\Framework\\TestCase' ) ) {
-    echo "PHPUnit not found. Please install it and other dev dependencies by running `"
-        . "composer install` in DBBT root directory.\n";
-    die ( 1 );
+    public static function make(string $name, ...$params) : ICompress
+    {
+        return parent::make( $name, ...$params );
+    }
 }
-if ( !class_exists( $phpUnitClass ) ) {
-    echo "PHPUnit entry point '" . $phpUnitClass . "' not found. Please make sure you installed "
-        . "the containing component and check the spelling of the class name.\n";
-    die ( 1 );
-}
-
-$_SERVER['argv'][] = APP_PATH . '/tests/';
-
-$phpUnitClass::main();

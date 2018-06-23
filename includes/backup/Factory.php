@@ -36,6 +36,6 @@ final class Factory extends AbstractFactory
 
     public static function make(string $name, ...$params) : IBackup
     {
-        return parent::make( $name );
+        return parent::make( $name, ...$params );
     }
 }

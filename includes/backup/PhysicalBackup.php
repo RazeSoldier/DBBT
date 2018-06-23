@@ -20,7 +20,10 @@
 
 namespace DBBT\backup;
 
+use DBBT\Action\CompressAction;
 use DBBT\Config;
+use DBBT\Invoker;
+use DBBT\Logger;
 
 class PhysicalBackup implements IBackup
 {
@@ -29,13 +32,82 @@ class PhysicalBackup implements IBackup
      */
     private $config;
 
-    public function __construct(Config $config)
+    /**
+     * @var string The path to you want to backup, can be a file or a directory
+     */
+    private $dbPath;
+
+    /**
+     * @var Logger
+     */
+    private $logger;
+
+    /**
+     * @var string The user home directory
+     */
+    private $homeDir;
+
+    public function __construct(Config $config, Logger $logger = null)
     {
         $this->config = $config;
+        $this->dbPath = $config->get( 'DBPath' );
+        // Checks $gDBPath @{
+        if ( !is_readable( $this->dbPath ) ) {
+            throw new \LogicException( "{$this->dbPath} can't readable or does not exists" );
+        }
+        // @}
+        $this->logger = $logger;
+        // Set PhysicalBackup::$homeDir @{
+        $homeDir = getenv( 'HOME' );
+        if ( $homeDir === false ) {
+            throw new \RuntimeException( "'HOME' environment variable does not exist" );
+        }
+        if ( !is_writable( $homeDir ) ) {
+            throw new \RuntimeException( "$homeDir does not writable" );
+        }
+        $this->homeDir = $homeDir;
+        // @}
     }
 
     public function dump() : string
     {
-        // TODO: Implement dump() method.
+        // If $gDBPath is a directory, pack all files in this directory before moving
+        if ( is_dir( $this->dbPath ) ) {
+            $tmp = $this->dirHandler( $this->dbPath );
+        } elseif ( is_file( $this->dbPath ) ) {
+            $tmp = $this->homeDir . '/db.dump';
+            if ( !copy( $this->dbPath, $tmp ) ) {
+                throw new \RuntimeException( 'Failed to copy' );
+            }
+        } else {
+            throw new \LogicException();
+        }
+        return $tmp;
+    }
+
+    private function dirHandler(string $dir) : string
+    {
+        if ( $this->config->has( 'CompressType' ) ) {
+            if ( empty( $type = $this->config->get( 'CompressType' ) ) ) {
+                $type = 'tar.gz';
+            }
+        } else {
+            // If $gCompressType undefined. use 'tar.gz'
+            $type = 'tar.gz';
+        }
+        // Get $target @{
+        switch ( $type ) {
+            case 'tar.gz':
+                $target = $this->homeDir . '/db.tar.gz';
+                break;
+            default :
+                throw new \LogicException( "Undefined type: '$type'" );
+        }
+        // @}
+        $compressor = \DBBT\Compress\Factory::make( $type, $dir, $target );
+        $action = new CompressAction( $compressor, $this->logger );
+        $invoker = new Invoker( $action );
+        $invoker->doAction();
+        return $target;
     }
 }

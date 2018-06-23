@@ -18,23 +18,39 @@
  * @copyright
  */
 
-define( 'PHPUNIT_TEST', true );
+namespace DBBT\Action;
+use DBBT\Compress\ICompress;
+use DBBT\Logger;
 
-require_once dirname( __DIR__ ) . '/includes/Setup.php';
+/**
+ * Responsible for calling ICompress::compress()
+ * @package DBBT\Action
+ */
+class CompressAction implements IAction
+{
+    /**
+     * @var ICompress
+     */
+    private $compressor;
 
-$phpUnitClass = 'PHPUnit\TextUI\Command';
+    /**
+     * @var Logger|null
+     */
+    private $logger;
 
-if ( !class_exists( 'PHPUnit\\Framework\\TestCase' ) ) {
-    echo "PHPUnit not found. Please install it and other dev dependencies by running `"
-        . "composer install` in DBBT root directory.\n";
-    die ( 1 );
+    /**
+     * CompressAction constructor.
+     * @param ICompress $compressor
+     * @param Logger|null $logger
+     */
+    public function __construct(ICompress $compressor, Logger $logger = null)
+    {
+        $this->compressor = $compressor;
+        $this->logger = $logger;
+    }
+
+    public function execute() : bool
+    {
+        return $this->compressor->compress();
+    }
 }
-if ( !class_exists( $phpUnitClass ) ) {
-    echo "PHPUnit entry point '" . $phpUnitClass . "' not found. Please make sure you installed "
-        . "the containing component and check the spelling of the class name.\n";
-    die ( 1 );
-}
-
-$_SERVER['argv'][] = APP_PATH . '/tests/';
-
-$phpUnitClass::main();

@@ -70,7 +70,7 @@ final class Core implements IRunnable
         if ( $config === 'logical' ) {
             $dumper = BackupFactory::make( $this->config->get( 'DBType' ) );
         } elseif ( $config === 'physical' ) {
-            $dumper = BackupFactory::make( 'physical' );
+            $dumper = BackupFactory::make( 'physical', $this->logger );
         } else {
             throw new \LogicException();
         }

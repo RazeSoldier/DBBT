@@ -23,6 +23,7 @@
 return [
     'AbstractFactory' => 'includes/AbstractFactory.php',
     'Action\BackupAction' => 'includes/action/BackupAction.php',
+    'Action\CompressAction' => 'includes/action/CompressAction.php',
     'Action\IAction' => 'includes/action/IAction.php',
     'Action\StorageAction' => 'includes/action/StorageAction.php',
     'Backup\Factory' => 'includes/backup/Factory.php',
@@ -33,6 +34,9 @@ return [
     'Checker' => 'includes/Checker.php',
     'CLIOption' => 'includes/CLIOption.php',
     'Command' => 'includes/Command.php',
+    'Compress\Factory' => 'includes/compress/Factory.php',
+    'Compress\ICompress' => 'includes/compress/ICompress.php',
+    'Compress\TarGzCompress' => 'includes/compress/TarGzCompress.php',
     'Config' => 'includes/Config.php',
     'Core' => 'includes/Core.php',
     'IAccessor' => 'includes/IAccessor.php',

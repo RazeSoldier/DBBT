@@ -19,8 +19,17 @@
  */
 
 namespace DBBT\Compress;
+use DBBT\Config;
 
 interface ICompress
 {
+    /**
+     * ICompress interface constructor.
+     * @param Config $config
+     * @param string $source Source files path
+     * @param string $target The path you want to save
+     */
+    public function __construct(Config $config, string $source, string $target);
+
     public function compress();
 }

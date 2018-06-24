@@ -100,6 +100,9 @@ class PhysicalBackup implements IBackup
             case 'tar.gz':
                 $target = $this->homeDir . '/db.tar.gz';
                 break;
+            case 'zip':
+                $target = $this->homeDir . 'db.zip';
+                break;
             default :
                 throw new \LogicException( "Undefined type: '$type'" );
         }

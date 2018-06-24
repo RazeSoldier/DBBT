@@ -37,6 +37,7 @@ return [
     'Compress\Factory' => 'includes/compress/Factory.php',
     'Compress\ICompress' => 'includes/compress/ICompress.php',
     'Compress\TarGzCompress' => 'includes/compress/TarGzCompress.php',
+    'Compress\ZIPCompress' => 'includes/compress/ZIPCompress.php',
     'Config' => 'includes/Config.php',
     'Core' => 'includes/Core.php',
     'IAccessor' => 'includes/IAccessor.php',

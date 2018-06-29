@@ -89,11 +89,11 @@ class PhysicalBackup implements IBackup
     {
         if ( $this->config->has( 'CompressType' ) ) {
             if ( empty( $type = $this->config->get( 'CompressType' ) ) ) {
-                $type = 'tar.gz';
+                $type = 'zip';
             }
         } else {
-            // If $gCompressType undefined. use 'tar.gz'
-            $type = 'tar.gz';
+            // If $gCompressType undefined. use 'zip'
+            $type = 'zip';
         }
         // Get $target @{
         switch ( $type ) {

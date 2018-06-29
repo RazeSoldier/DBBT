@@ -62,6 +62,10 @@ class ZipCompress implements ICompress
         return true;
     }
 
+    /**
+     * Recursive to add all the files under $dir to the zip archive
+     * @param string $dir
+     */
     private function resAddDir(string $dir)
     {
         static $resCount = 0;

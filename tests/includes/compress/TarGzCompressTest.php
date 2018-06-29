@@ -19,10 +19,10 @@
  */
 
 namespace DBBT\Test;
-
-use DBBT\Compress\TarGzCompress;
-use DBBT\Config;
-use PHPUnit\Framework\TestCase;
+use DBBT\{
+    Compress\TarGzCompress,
+    Config
+};
 
 class TarGzCompressTest extends TestCase
 {
@@ -59,14 +59,5 @@ class TarGzCompressTest extends TestCase
         if ( file_exists( $this->tmp ) ) {
             unlink( $this->tmp );
         }
-    }
-
-    private function delTree(string $dir)
-    {
-        $files = array_diff( scandir( $dir ), [ '.', '..' ] );
-        foreach ( $files as $file ) {
-            ( is_dir("$dir/$file") ) ? $this->delTree( "$dir/$file" ) : unlink("$dir/$file");
-        }
-        return rmdir($dir);
     }
 }

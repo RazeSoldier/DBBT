@@ -24,7 +24,6 @@ use DBBT\{
     Config,
     Compress\ZipCompress
 };
-use PHPUnit\Framework\TestCase;
 
 class ZipCompressTest extends TestCase
 {
@@ -100,72 +99,5 @@ class ZipCompressTest extends TestCase
         if ( file_exists( $this->tmp ) ) {
             unlink( $this->tmp );
         }
-    }
-
-    /**
-     * As of $tree, create a directory tree
-     * @param array $tree Directory tree
-     * @param string|null $parent The parent directory of $tree
-     */
-    private function makeTree(array $tree, string $parent = null)
-    {
-        foreach ( $tree as $key => $file ) {
-            if ( is_array( $file ) ) {
-                if ( $parent === null ) {
-                    $dir = $key;
-                    mkdir( $dir );
-                } else {
-                    $dir = $parent . '/' . $key;
-                    mkdir( $dir );
-                }
-                $this->makeTree( $file, $dir );
-                return;
-            }
-            if ( is_string( $file ) ) {
-                if ( $parent === null ) {
-                    $path = $file;
-                } else {
-                    $path = $parent . '/' . $file;
-                }
-                file_put_contents( $path, '' );
-            }
-        }
-    }
-
-    /**
-     * Traverse a directory
-     * @param string $dir
-     * @return array Directory structure
-     */
-    private function resDir(string $dir) : array
-    {
-        $iterator = new \DirectoryIterator( $dir );
-        foreach ( $iterator as $fileInfo ) {
-            if ( !$fileInfo->isDot() ) {
-                if ( $fileInfo->isDir() ) {
-                    $dirStructure[$fileInfo->getFilename()] = $this->resDir( $fileInfo->getRealPath() );
-                    continue;
-                }
-                $dirStructure[] = $fileInfo->getFilename();
-            }
-        }
-        if ( !isset( $dirStructure ) ) {
-            throw new \RuntimeException();
-        }
-        return $dirStructure;
-    }
-
-    /**
-     * Delete a directory
-     * @param string $dir
-     * @return bool
-     */
-    private function delTree(string $dir)
-    {
-        $files = array_diff( scandir( $dir ), [ '.', '..' ] );
-        foreach ( $files as $file ) {
-            ( is_dir( "$dir/$file" ) ) ? $this->delTree( "$dir/$file" ) : unlink( "$dir/$file" );
-        }
-        return rmdir( $dir );
     }
 }

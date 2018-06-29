@@ -37,4 +37,6 @@ if ( !class_exists( $phpUnitClass ) ) {
 
 $_SERVER['argv'][] = APP_PATH . '/tests/';
 
+require APP_PATH . '/tests/TestCase.php';
+
 $phpUnitClass::main();

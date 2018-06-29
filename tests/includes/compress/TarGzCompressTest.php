@@ -30,22 +30,42 @@ class TarGzCompressTest extends TestCase
 
     private $tmp = 'test.tmp';
 
+    private $extractDir = 'extracted';
+
     private $tmpList;
+
+    /**
+     * @var array Directory structure used to testing
+     */
+    private $fileMap = [
+        0 => '1',
+        '1' => 'test.html',
+        'test' => [
+            '1.txt',
+            '2' => [
+                '5',
+                '6'
+            ]
+        ]
+    ];
 
     protected function setUp()
     {
-        $this->tmpList = [ $this->dir, $this->tmp ];
+        $this->tmpList = [ $this->dir, $this->tmp, $this->extractDir ];
         $this->batchDelete( $this->tmpList );
+        // Make test case
         mkdir( $this->dir );
-        for ( $i = 0; $i < 10; $i++ ) {
-            file_put_contents( $this->dir. "/$i", $i );
-        }
+        $this->makeTree( $this->fileMap, $this->dir );
     }
 
     public function testCompress()
     {
-        $compressor = new TarGzCompress( Config::getInstance(), $this->dir, 'test.tmp' );
-        $this->assertTrue( $compressor->compress() );
+        $compressor = new TarGzCompress( Config::getInstance(), $this->dir, $this->tmp );
+        $compressor->compress();
+        $phar = new \PharData( $this->tmp );
+        $phar->extractTo( $this->extractDir );
+        $check[$this->dir] = $this->fileMap;
+        $this->assertEquals( $check, $this->resDir( $this->extractDir ) );
     }
 
     protected function tearDown()

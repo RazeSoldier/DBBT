@@ -16,7 +16,8 @@ DBBT is well tested only on linux systems, other systems
 * Local file system storage
 * [QCloud COS remote storage](https://intl.cloud.tencent.com/product/cos)
 ### Compress
-Support `tar.gz` compress (if you have `GNU tar` software)
+* `tar.gz` (if you have `GNU tar` software)
+* `zip` compress (if you have `Zip` PHP extension)
 
 ## Usage
 **For user, it is more recommend to use the PHAR file**

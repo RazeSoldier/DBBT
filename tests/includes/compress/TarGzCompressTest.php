@@ -30,18 +30,13 @@ class TarGzCompressTest extends TestCase
 
     private $tmp = 'test.tmp';
 
+    private $tmpList;
+
     protected function setUp()
     {
-        if ( file_exists( $this->dir ) ) {
-            if ( is_dir( $this->dir ) ) {
-                $this->delTree( $this->dir );
-            } else {
-                unlink( $this->dir );
-            }
-            mkdir( $this->dir );
-        } else {
-            mkdir( $this->dir );
-        }
+        $this->tmpList = [ $this->dir, $this->tmp ];
+        $this->batchDelete( $this->tmpList );
+        mkdir( $this->dir );
         for ( $i = 0; $i < 10; $i++ ) {
             file_put_contents( $this->dir. "/$i", $i );
         }
@@ -55,9 +50,6 @@ class TarGzCompressTest extends TestCase
 
     protected function tearDown()
     {
-        $this->delTree( $this->dir );
-        if ( file_exists( $this->tmp ) ) {
-            unlink( $this->tmp );
-        }
+        $this->batchDelete( $this->tmpList );
     }
 }

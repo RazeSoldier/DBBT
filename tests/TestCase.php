@@ -25,7 +25,7 @@ use PHPUnit\Framework\TestCase as phpunit;
  * Extending PHPUnit\Framework\TestCase class to add commonly used methods
  * @package DBBT\Test
  */
-class TestCase extends phpunit
+abstract class TestCase extends phpunit
 {
     /**
      * As of $tree, create a directory tree
@@ -92,5 +92,45 @@ class TestCase extends phpunit
             ( is_dir( "$dir/$file" ) ) ? $this->delTree( "$dir/$file" ) : unlink( "$dir/$file" );
         }
         return rmdir( $dir );
+    }
+
+    /**
+     * Batch checking whether the files in the array exists
+     * @param array $arr Number array, includes path to check
+     * @param callable|null $funName Called after checked a file
+     * @return array
+     */
+    protected function batchCheckFileExists(array $arr, callable $funName = null) : array
+    {
+        foreach ( $arr as $dirPath ) {
+            if ( file_exists( $dirPath ) ) {
+                if ( is_dir( $dirPath ) ) {
+                    $status = 'dir';
+                } else {
+                    $status = 'file';
+                }
+            } else {
+                $status = false;
+            }
+            call_user_func( $funName, $dirPath, $status );
+            $result[$dirPath] = $status;
+        }
+        return $result;
+    }
+
+    /**
+     * Batch delete files
+     * @param array $arr Number array, includes path to delete
+     */
+    protected function batchDelete(array $arr)
+    {
+        $this->batchCheckFileExists( $arr, function (string $dirPath, $status) {
+            if ( $status === 'dir' ) {
+                $this->delTree( $dirPath );
+            }
+            if ( $status === 'file' ) {
+                unlink( $dirPath );
+            }
+        } );
     }
 }

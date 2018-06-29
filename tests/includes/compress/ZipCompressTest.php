@@ -33,6 +33,8 @@ class ZipCompressTest extends TestCase
 
     private $extractDir = 'extracted';
 
+    private $tmpList = [];
+
     /**
      * @var array Directory structure used to testing
      */
@@ -51,27 +53,8 @@ class ZipCompressTest extends TestCase
     protected function setUp()
     {
         // If the test directory already exists, delete it @{
-        if ( file_exists( $this->dir ) ) {
-            if ( is_dir( $this->dir ) ) {
-                $this->delTree( $this->dir );
-            } else {
-                unlink( $this->dir );
-            }
-        }
-        if ( file_exists( $this->tmp ) ) {
-            if ( is_dir( $this->tmp ) ) {
-                $this->delTree( $this->tmp );
-            } else {
-                unlink( $this->tmp );
-            }
-        }
-        if ( file_exists( $this->extractDir ) ) {
-            if ( is_dir( $this->extractDir ) ) {
-                $this->delTree( $this->extractDir );
-            } else {
-                unlink( $this->extractDir );
-            }
-        }
+        $this->tmpList = [ $this->dir, $this->tmp, $this->extractDir ];
+        $this->batchDelete( $this->tmpList );
         // @}
         // Make test case
         mkdir( $this->dir );
@@ -90,14 +73,6 @@ class ZipCompressTest extends TestCase
 
     protected function tearDown()
     {
-        if ( is_dir( $this->dir ) ) {
-            $this->delTree( $this->dir );
-        }
-        if ( is_dir( $this->extractDir ) ) {
-            $this->delTree( $this->extractDir );
-        }
-        if ( file_exists( $this->tmp ) ) {
-            unlink( $this->tmp );
-        }
+        $this->batchDelete( $this->tmpList );
     }
 }

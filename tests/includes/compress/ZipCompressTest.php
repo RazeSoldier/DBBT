@@ -22,11 +22,11 @@ namespace DBBT\Test;
 
 use DBBT\{
     Config,
-    Compress\ZIPCompress
+    Compress\ZipCompress
 };
 use PHPUnit\Framework\TestCase;
 
-class ZIPCompressTest extends TestCase
+class ZipCompressTest extends TestCase
 {
     private $dir = 'tesZip';
 
@@ -51,7 +51,7 @@ class ZIPCompressTest extends TestCase
 
     public function testCompress()
     {
-        $compressor = new ZIPCompress( Config::getInstance(), $this->dir, $this->tmp );
+        $compressor = new ZipCompress( Config::getInstance(), $this->dir, $this->tmp );
         $this->assertTrue( $compressor->compress() );
     }
 

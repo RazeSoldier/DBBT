@@ -22,7 +22,7 @@ namespace DBBT\Compress;
 
 use DBBT\Config;
 
-class ZIPCompress implements ICompress
+class ZipCompress implements ICompress
 {
     private $config;
 

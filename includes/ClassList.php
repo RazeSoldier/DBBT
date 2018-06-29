@@ -37,6 +37,7 @@ return [
     'Compress\Factory' => 'includes/compress/Factory.php',
     'Compress\ICompress' => 'includes/compress/ICompress.php',
     'Compress\TarGzCompress' => 'includes/compress/TarGzCompress.php',
+    'Compress\ZipCompress' => 'includes/compress/ZipCompress.php',
     'Config' => 'includes/Config.php',
     'Core' => 'includes/Core.php',
     'IAccessor' => 'includes/IAccessor.php',
@@ -49,5 +50,5 @@ return [
     'Storage\Factory' => 'includes/storage/Factory.php',
     'Storage\IStorage' => 'includes/storage/IStorage.php',
     'Storage\LocalStorage' => 'includes/storage/LocalStorage.php',
-    'Storage\QcloudCOSBackup' => 'includes/storage/QcloudCOSBackup.php',
+    'Storage\QCloudCOS' => 'includes/storage/QCloudCOS.php',
 ];

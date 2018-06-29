@@ -31,6 +31,7 @@ class Factory extends AbstractFactory
 
     protected static $classMap = [
         'tar.gz' => 'TarGzCompress',
+        'zip' => 'ZipCompress',
     ];
 
     public static function make(string $name, ...$params) : ICompress

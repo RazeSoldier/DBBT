@@ -19,14 +19,13 @@
  */
 
 namespace DBBT\Storage;
-
 use DBBT\{
     Checker,
     Config
 };
 use Qcloud\Cos\Client;
 
-class QcloudCOSBackup implements IStorage
+class QCloudCOS implements IStorage
 {
     /**
      * @var Config

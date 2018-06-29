@@ -17,7 +17,7 @@ $gDBWantDump = '';
 // If $gBackupType set to 'physical', please configure @{
 $gDBPath = ''; // The path to you want to backup, can be a file or a directory
 # If $gDBPath is a directory, please also configure $gCompressType
-$gCompressType = ''; // The compress type (Allow value: 'tar.gz', '' or null)
+$gCompressType = ''; // The compress type (Allow value: 'tar.gz', 'zip', '' or null)
 // @}
 
 # Storage config
@@ -31,4 +31,4 @@ $gStoragePath = ''; // The path to you want to save
 // @}
 
 # Other config
-$gLogFilePath = ''; // The path to the log file, if it set to NULL or an empty string, logging will disable
+$gLogFilePath = ''; // Optional, the path to the log file, if it set to NULL or an empty string, logging will disable

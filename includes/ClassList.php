@@ -50,5 +50,5 @@ return [
     'Storage\Factory' => 'includes/storage/Factory.php',
     'Storage\IStorage' => 'includes/storage/IStorage.php',
     'Storage\LocalStorage' => 'includes/storage/LocalStorage.php',
-    'Storage\QcloudCOSBackup' => 'includes/storage/QcloudCOSBackup.php',
+    'Storage\QCloudCOS' => 'includes/storage/QCloudCOS.php',
 ];

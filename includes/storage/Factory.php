@@ -28,7 +28,7 @@ class Factory extends AbstractFactory
 
     protected static $classMap = [
         'local' => 'LocalStorage',
-        'qcloud' => 'QcloudCOSBackup',
+        'qcloud' => 'QCloudCOS',
     ];
 
     public static function make(string $name, ...$params) : IStorage

@@ -1,6 +1,7 @@
 {
   "name": "DBBT",
   "description": "Database Backup Tool",
+  "version": "1.0.0",
   "type": "project",
   "keywords": [
     "database",

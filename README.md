@@ -1,6 +1,16 @@
 # DBBT
 Database Backup Tool
 
+## What can this do?
+This tool is written by PHP. If your website is also written by PHP, then using this tool does not require additional
+environment requirements. (The version requirements are described in Compatibility section below)
+
+This tool supports both physical and logical backups. Due physical backup just is file copy,
+so the backup method supported all databases. However the logical backup only supports MySQL (and MariaDB),
+in the future will support more databases.
+
+This tool also supports both local and remote storage. The support storage way is detailed below.
+
 ## Compatibility
 ### PHP
 DBBT requires PHP 7.0+.
@@ -37,3 +47,6 @@ structure. You can configure your backup tool on this basis)
 ## Support
 If this tool on the way in the use of the problem or you have any ideas, please go to
 the [Github issues](https://github.com/RazeSoldier/DBBT/issues).
+
+## Contribute
+The project welcomes anyone to contribute code. For more information, see `CONTRIBUTING.md` file.

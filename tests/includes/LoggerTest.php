@@ -21,7 +21,6 @@
 namespace DBBT\Test;
 
 use DBBT\Logger;
-use PHPUnit\Framework\TestCase;
 
 class LoggerTest extends TestCase
 {

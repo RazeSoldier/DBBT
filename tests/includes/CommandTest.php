@@ -21,7 +21,6 @@
 namespace DBBT\Test;
 
 use DBBT\Command;
-use PHPUnit\Framework\TestCase;
 
 class CommandTest extends TestCase
 {

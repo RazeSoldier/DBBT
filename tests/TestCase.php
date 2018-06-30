@@ -19,6 +19,7 @@
  */
 
 namespace DBBT\Test;
+
 use PHPUnit\Framework\TestCase as phpunit;
 
 /**

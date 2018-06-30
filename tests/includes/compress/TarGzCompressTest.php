@@ -19,6 +19,7 @@
  */
 
 namespace DBBT\Test;
+
 use DBBT\{
     Compress\TarGzCompress,
     Config

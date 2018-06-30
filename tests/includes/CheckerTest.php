@@ -21,7 +21,6 @@
 namespace DBBT\Test;
 
 use DBBT\Checker;
-use PHPUnit\Framework\TestCase;
 
 class CheckerTest extends TestCase
 {

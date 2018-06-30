@@ -21,7 +21,6 @@
 namespace DBBT\Test;
 
 use DBBT\CLIOption;
-use PHPUnit\Framework\TestCase;
 
 class CLIOptionTest extends TestCase
 {

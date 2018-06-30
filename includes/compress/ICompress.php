@@ -19,6 +19,7 @@
  */
 
 namespace DBBT\Compress;
+
 use DBBT\Config;
 
 interface ICompress

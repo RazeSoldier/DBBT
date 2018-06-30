@@ -20,8 +20,10 @@
 
 namespace DBBT\Action;
 
-use DBBT\Backup\IBackup;
-use DBBT\Logger;
+use DBBT\{
+    Backup\IBackup,
+    Logger
+};
 
 /**
  * Responsible for calling IBackup::dump()

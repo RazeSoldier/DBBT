@@ -19,6 +19,7 @@
  */
 
 namespace DBBT;
+
 use DBBT\Action\IAction;
 
 /**

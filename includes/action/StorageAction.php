@@ -20,8 +20,10 @@
 
 namespace DBBT\Action;
 
-use DBBT\Logger;
-use DBBT\Storage\IStorage;
+use DBBT\{
+    Logger,
+    Storage\IStorage
+};
 
 final class StorageAction implements IAction
 {

@@ -19,8 +19,11 @@
  */
 
 namespace DBBT\Compress;
-use DBBT\Command;
-use DBBT\Config;
+
+use DBBT\{
+    Command,
+    Config
+};
 
 /**
  * Used to compress files to tar.gz tarball

@@ -19,6 +19,7 @@
  */
 
 namespace DBBT\Storage;
+
 use DBBT\{
     Checker,
     Config

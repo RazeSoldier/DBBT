@@ -19,8 +19,11 @@
  */
 
 namespace DBBT\Action;
-use DBBT\Compress\ICompress;
-use DBBT\Logger;
+
+use DBBT\{
+    Compress\ICompress,
+    Logger
+};
 
 /**
  * Responsible for calling ICompress::compress()

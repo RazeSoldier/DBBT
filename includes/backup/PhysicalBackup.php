@@ -20,10 +20,12 @@
 
 namespace DBBT\backup;
 
-use DBBT\Action\CompressAction;
-use DBBT\Config;
-use DBBT\Invoker;
-use DBBT\Logger;
+use DBBT\{
+    Action\CompressAction,
+    Config,
+    Invoker,
+    Logger
+};
 
 class PhysicalBackup implements IBackup
 {

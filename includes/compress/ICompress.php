@@ -32,5 +32,5 @@ interface ICompress
      */
     public function __construct(Config $config, string $source, string $target);
 
-    public function compress();
+    public function compress() : bool;
 }

@@ -55,7 +55,7 @@ class ZipCompress implements ICompress
         }
     }
 
-    public function compress()
+    public function compress() : bool
     {
         $this->resAddDir( $this->source );
         $this->zip->close();

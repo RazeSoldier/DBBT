@@ -71,7 +71,7 @@ class TarGzCompress implements ICompress
         $this->config = $config;
     }
 
-    public function compress()
+    public function compress() : bool
     {
         $shell = new Command( "tar czf $this->target $this->source/*" );
         $shell->execute();

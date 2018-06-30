@@ -29,7 +29,7 @@ use DBBT\{
  * Responsible for calling ICompress::compress()
  * @package DBBT\Action
  */
-class CompressAction implements IAction
+final class CompressAction implements IAction
 {
     /**
      * @var ICompress
@@ -54,6 +54,9 @@ class CompressAction implements IAction
 
     public function execute() : bool
     {
-        return $this->compressor->compress();
+        $this->logger->write( Logger::makeMessage( 'Start compress', 'Notice' ) );
+        $result =  $this->compressor->compress();
+        $this->logger->write( Logger::makeMessage( 'Compress finish', 'Notice' ) );
+        return $result;
     }
 }

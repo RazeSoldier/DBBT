@@ -46,8 +46,8 @@ final class Core implements IRunnable
             pcntl_signal( SIGTERM, [ $this, 'signalHandler' ] );
         }
         $this->config = Config::getInstance();
-        if ( Config::getInstance()->has( 'LogFilePath' ) &&
-            !empty( $path = Config::getInstance()->get( 'LogFilePath' ) )
+        if ( $this->config->has( 'LogFilePath' ) &&
+            !empty( $path = $this->config->get( 'LogFilePath' ) )
         ) {
             $this->logger = new Logger( $path );
         }

@@ -105,7 +105,9 @@ final class Core implements IRunnable
         if ( isset( $_SESSION['dbbt_tmp'] ) && is_array( $_SESSION['dbbt_tmp'] ) ) {
             foreach ( $_SESSION['dbbt_tmp'] as $tmpFile ) {
                 unlink( $tmpFile );
-                $this->logger->write( Logger::makeMessage( "Deleted tmp file: $tmpFile", 'Notice' ) );
+                if ( $this->logger !== null ) {
+                    $this->logger->write( Logger::makeMessage( "Deleted tmp file: $tmpFile", 'Notice' ) );
+                }
             }
             unset( $_SESSION['dbbt_tmp'] );
         }
